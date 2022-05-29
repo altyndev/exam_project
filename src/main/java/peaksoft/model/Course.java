@@ -7,17 +7,18 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name = "courses")
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -29,12 +30,20 @@ public class Course {
     @Column(name = "duration")
     private String duration;
 
-    @ManyToOne(cascade = {PERSIST, MERGE})
+    @ManyToOne(cascade = {PERSIST,MERGE,DETACH,REFRESH},fetch = LAZY)
+    @JoinColumn(name = "company_id")
     private Company company;
 
-    @ManyToMany(cascade = {MERGE, PERSIST, REFRESH}, fetch = EAGER, mappedBy = "courseList")
-    private List<Group> group;
+    @ManyToMany(cascade = {MERGE, PERSIST, REFRESH}, fetch = EAGER, mappedBy = "courses")
+    private List<Group> groups;
 
-    @OneToOne(cascade = ALL, fetch = EAGER)
+    @OneToOne(cascade = ALL, fetch = EAGER, mappedBy = "course")
     private Teacher teacher;
+
+    public void getAllGroup(Group group) {
+        if (group == null) {
+            groups = new ArrayList<>();
+        }
+        groups.add(group);
+    }
 }

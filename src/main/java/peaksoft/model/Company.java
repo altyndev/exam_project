@@ -11,23 +11,28 @@ import java.util.List;
 
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name = "companies")
 @Getter@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "company_name")
-    private String compayName;
+    private String companyName;
 
     @Column(name = "located_name")
     private String locatedName;
 
-    @OneToMany(cascade = ALL, fetch = EAGER)
-    private List<Course> course;
+    @OneToMany(cascade = ALL, fetch = EAGER, mappedBy = "company")
+    private List<Course> courses;
+
+    public Company(String companyName, String locatedName) {
+        this.companyName = companyName;
+        this.locatedName = locatedName;
+    }
 }

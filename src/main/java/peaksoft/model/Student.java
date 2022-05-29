@@ -17,19 +17,18 @@ import static javax.persistence.FetchType.EAGER;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
 
     @Column(name = "email")
     private String email;
 
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "study_format")
@@ -38,4 +37,9 @@ public class Student {
 
     @ManyToOne(cascade = {PERSIST, MERGE}, fetch = EAGER)
     private Group group;
+
+    public Student(String firstName, String email) {
+        this.firstName = firstName;
+        this.email = email;
+    }
 }

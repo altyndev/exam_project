@@ -1,18 +1,20 @@
 package peaksoft.repository.repositoryInterface;
 
+import org.springframework.stereotype.Repository;
 import peaksoft.model.Teacher;
 
 import java.util.List;
 
+@Repository
 public interface TeacherRepository {
 
-    Teacher saveTeacher(Teacher teacher);
+    void save(Teacher teacher);
 
-    void removeTeacherById(Long id);
+    void removeById(Long id);
 
     Teacher getById(Long id);
 
-    List<Teacher> getAllTeacher();
+    List<Teacher> getAll();
 
-    void updateTeacher(Long id,Teacher teacher);
+    void update(Teacher teacher);
 }

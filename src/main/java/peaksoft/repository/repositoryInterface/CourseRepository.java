@@ -1,18 +1,20 @@
 package peaksoft.repository.repositoryInterface;
 
-import peaksoft.model.Company;
+import org.springframework.stereotype.Repository;
 import peaksoft.model.Course;
 
 import java.util.List;
 
+@Repository
 public interface CourseRepository {
-    Course saveCourse(Course course);
 
-    void removeCourseById(Long id);
+    void save(Course course);
+
+    void removeById(Long id);
 
     Course getById(Long id);
 
-    List<Course> getAllCourse();
+    List<Course> getAll();
 
-    void update(Long id, Course course);
+    void update(Course course);
 }

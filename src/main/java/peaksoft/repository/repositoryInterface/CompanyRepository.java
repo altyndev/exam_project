@@ -1,19 +1,21 @@
 package peaksoft.repository.repositoryInterface;
 
+import org.springframework.stereotype.Repository;
 import peaksoft.model.Company;
 
 import java.util.List;
 
-public interface CompanyRepository <T> {
+@Repository
+public interface CompanyRepository {
 
-    <T> T saveCompany(T t);
+    Company save(Company company);
 
-    <T>  void removeCompanyById(Long id);
+     void removeById(Long id);
 
-    <T> T getById(Long id);
+    Company getById(Long id);
 
-    List<?> getAllCompany();
+    List<Company> getAll();
 
-    <T> void update(Long id, T t);
+     void update(Long id,Company company);
 
 }

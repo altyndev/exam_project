@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>company</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th scope="col">id</th>
+        <th scope="col">companyName</th>
+        <th scope="col">locatedName</th>
+        <th scope="col">courses</th>
+        <th scope="col">update</th>
+        <th scope="col">delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="company : ${companies}">
+        <td th:text="${company.getId()}"></td>
+        <td th:text="${company.getCompanyName()}"></td>
+        <td th:text="${company.getLocatedName()}"></td>
+        <td><a th:href="@{course/{id}(id=${company.getId()})}">
+            <button>Course</button>
+        </a></td>
+        <td scope="col"><a th:href="@{/api/companies/{id}/update(id=${company.getId()})}">
+            <button style="width:50px;height:20px;background-color: blue;color: beige">Edit</button>
+        </a></td>
+        <form
+                th:method="DELETE" th:action="@{/com/{id}(id=${company.getId()})}">
+            <input style="width:50px;height:20px;background-color: red;color: beige" type="submit" value="Delete"/>
+        </form>
+    </tr>
+    </tbody>
+</table>
+<div>
+    <a th:href="@{/api/companies/save}">
+        <button>
+            +add
+        </button>
+    </a>
+</div>
+</body>
+</html>

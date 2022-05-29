@@ -10,6 +10,7 @@ import javax.persistence.*;
 import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name = "teachers")
@@ -31,7 +32,7 @@ public class Teacher {
     @Column(name = "last_ame")
     private String lastName;
 
-    @OneToOne(cascade = {PERSIST, MERGE}, fetch = EAGER)
+    @OneToOne(cascade = {PERSIST, MERGE}, fetch = LAZY)
     private Course course;
 
 }
