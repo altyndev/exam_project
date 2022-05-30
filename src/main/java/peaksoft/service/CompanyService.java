@@ -3,10 +3,9 @@ package peaksoft.service;
 import org.springframework.stereotype.Service;
 import peaksoft.model.Company;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
-
+@Service
 public interface CompanyService {
 
     Company save(Company company);
@@ -17,6 +16,6 @@ public interface CompanyService {
 
     List<Company> getAll();
 
-    void update(Long id, Company t);
+    void update(Long id, Company company);
 
 }

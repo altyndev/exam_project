@@ -1,6 +1,5 @@
 package peaksoft.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import peaksoft.model.Company;
 import peaksoft.repository.repositoryInterface.CompanyRepository;
@@ -13,8 +12,11 @@ import java.util.List;
 @Transactional
 public class CompanyServiceImpl implements CompanyService {
 
-    @Autowired
-    private CompanyRepository companyRepository;
+    private final CompanyRepository companyRepository;
+
+    public CompanyServiceImpl(CompanyRepository companyRepository) {
+        this.companyRepository = companyRepository;
+    }
 
     @Override
     public Company save(Company company) {
@@ -38,6 +40,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    @Transactional
     public void update(Long id,Company company) {
         companyRepository.update(id,company);
     }

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import peaksoft.model.Company;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CompanyRepository {
@@ -17,5 +18,7 @@ public interface CompanyRepository {
     List<Company> getAll();
 
      void update(Long id,Company company);
+
+    // Optional<Company> findById(Long id);
 
 }

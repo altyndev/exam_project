@@ -9,36 +9,40 @@
 <table>
     <thead>
     <tr>
-        <th scope="col">id</th>
-        <th scope="col">companyName</th>
-        <th scope="col">locatedName</th>
-        <th scope="col">courses</th>
-        <th scope="col">update</th>
-        <th scope="col">delete</th>
+        <th scope="col">Company id</th>
+        <th scope="col">Company Name</th>
+        <th scope="col">Address Company</th>
+        <th scope="col">Courses</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="company : ${companies}">
         <td th:text="${company.getId()}"></td>
         <td th:text="${company.getCompanyName()}"></td>
-        <td th:text="${company.getLocatedName()}"></td>
+        <td th:text="${company.getAddressCompany()}"></td>
         <td><a th:href="@{course/{id}(id=${company.getId()})}">
             <button>Course</button>
         </a></td>
-        <td scope="col"><a th:href="@{/api/companies/{id}/update(id=${company.getId()})}">
-            <button style="width:50px;height:20px;background-color: blue;color: beige">Edit</button>
-        </a></td>
-        <form
-                th:method="DELETE" th:action="@{/com/{id}(id=${company.getId()})}">
-            <input style="width:50px;height:20px;background-color: red;color: beige" type="submit" value="Delete"/>
-        </form>
+        <td>
+            <a href="#" th:href="@{/api/companies/update/{id}(id=${company.id})}">
+                <button type="button" class="btn btn-primary">update</button>
+            </a>
+        </td>
+        <td>
+            <form th:action="@{/api/companies/delete/{id}(id=${company.id})}" th:method="delete">
+                <input type="hidden" value="delete"/>
+                <button type="submit" class="btn btn-primary">delete</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>
 <div>
     <a th:href="@{/api/companies/save}">
         <button>
-            +add
+            Add Company
         </button>
     </a>
 </div>

@@ -1,14 +1,15 @@
-package peaksoft.repository.repositoryInterface;
+package peaksoft.service;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import peaksoft.model.Company;
 import peaksoft.model.Course;
 
 import java.util.List;
 
-@Repository
-public interface CourseRepository {
+@Service
+public interface CourseService {
 
-    void save(Course course);
+    Course save(Course course);
 
     void removeById(Long id);
 

@@ -1,6 +1,6 @@
 package peaksoft.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import peaksoft.model.Company;
 import peaksoft.repository.repositoryInterface.CompanyRepository;
@@ -10,12 +10,12 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Service
+@Repository
 @Transactional
-public class CompanyImpl implements CompanyRepository {
+public class CompanyRepositoryImpl implements CompanyRepository {
 
     @PersistenceContext
-    private  EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Override
     public Company save(Company company) {
@@ -24,8 +24,9 @@ public class CompanyImpl implements CompanyRepository {
     }
 
     @Override
+    @Transactional
     public void removeById(Long id) {
-        entityManager.remove(entityManager.find(Company.class, id));
+        entityManager.remove(getById(id));
     }
 
     @Override
@@ -40,10 +41,11 @@ public class CompanyImpl implements CompanyRepository {
     }
 
     @Override
-    public void update(Long id,Company company) {
-        Company company1 = entityManager.find(Company.class,id);
+    @Transactional
+    public void update(Long id, Company company) {
+        Company company1 = getById(id);
         company1.setCompanyName(company.getCompanyName());
-        company1.setLocatedName(company.getLocatedName());
-        entityManager.merge(company);
+        company1.setAddressCompany(company.getAddressCompany());
+        entityManager.merge(company1);
     }
 }

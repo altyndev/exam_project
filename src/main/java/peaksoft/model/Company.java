@@ -25,14 +25,14 @@ public class Company {
     @Column(name = "company_name")
     private String companyName;
 
-    @Column(name = "located_name")
-    private String locatedName;
+    @Column(name = "address_company")
+    private String addressCompany;
 
     @OneToMany(cascade = ALL, fetch = EAGER, mappedBy = "company")
     private List<Course> courses;
 
-    public Company(String companyName, String locatedName) {
+    public Company(String companyName, String addressCompany) {
         this.companyName = companyName;
-        this.locatedName = locatedName;
+        this.addressCompany = addressCompany;
     }
 }
