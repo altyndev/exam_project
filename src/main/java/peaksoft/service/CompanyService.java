@@ -12,9 +12,9 @@ public interface CompanyService {
 
     void removeById(Long id);
 
-    Company getById(Long id);
+    Company findById(Long id);
 
-    List<Company> getAll();
+    List<Company> findAll();
 
     void update(Long id, Company company);
 

@@ -10,11 +10,11 @@ public interface TeacherRepository {
 
     void save(Teacher teacher);
 
+    Teacher findById(Long id);
+
     void removeById(Long id);
 
-    Teacher getById(Long id);
-
-    List<Teacher> getAll();
+    List<Teacher> findAll(Long id);
 
     void update(Teacher teacher);
 }

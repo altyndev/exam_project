@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Save new Student</title>
+</head>
+<body>
+<form style="margin-top: 100px;margin-left: 300px"
+      method="post" th:action="@{'/api/students/save/'+${groupId}}" th:object="${emtityStudent}">
+
+    <label for="firstname">First name</label>
+    <input id="firstname" th:field="${emtityStudent.firstName}" placeholder="first_name">
+    <br><br>
+
+    <label for="lastname">Last name</label>
+    <input id="lastname" th:field="${emtityStudent.lastName}" placeholder="last_name">
+    <br><br>
+
+    <label for="email">Email</label>
+    <input id="email" th:field="${emtityStudent.email}" placeholder="email">
+    <br><br>
+
+    <form:form method="post" th:object="${emtityStudent.studyFormat}">
+        <label for="online">Online</label>
+            <input id="online" type="radio" name="studyFormat" value="ONLINE">
+
+        <label for="offline">Offline</label>
+            <input id="offline" type="radio" name="studyFormat" value="OFFLINE">
+    </form:form>
+    <br>
+    <button style="" type="submit">Save new student</button>
+</form>
+<div>
+    <a th:href="@{'/api/students/findAll/' + ${groupId}}">
+        <button>go back</button>
+    </a>
+</div>
+</body>
+</html>

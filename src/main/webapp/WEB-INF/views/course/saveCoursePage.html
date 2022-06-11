@@ -6,24 +6,25 @@
     <title>Save new Course</title>
 </head>
 <body>
-<form action="#"
-      th:action="@{/api/courses/save}"
-      method="post"
-      th:object="${course}">
+<form style="margin-top: 100px;margin-left: 300px"
+     method="post" th:action="@{'/api/courses/save/'+${companyId}}" th:object="${emtyCourse}">
 
     <label for="courseName">Course Name</label>
-    <input id="courseName" th:field="${course.courseName}" placeholder="course_name">
+    <input id="courseName" th:field="${emtyCourse.name}" placeholder="course_name">
     <br><br>
 
     <label for="duration">Duration</label>
-    <input id="duration" th:field="${course.duration}" placeholder="duration">
+    <input id="duration" th:field="${emtyCourse.duration}" placeholder="duration">
+
     <br><br>
 
-    <button type="submit">save course</button>
+    <button type="submit">Save new course</button>
 </form>
 
 <div>
-    <a th:href="@{/api/courses}">
+    <a th:href="@{'/api/courses/findAll/' + ${companyId}}">
         <button>go back</button>
     </a>
 </div>
+</body>
+</html>

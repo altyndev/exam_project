@@ -19,8 +19,15 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Teacher {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(
+            name = "teacher_sequence",
+            sequenceName = "teacher_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            generator = "teacher_sequence")
     private Long id;
 
     @Column(name = "first_name")
@@ -32,7 +39,11 @@ public class Teacher {
     @Column(name = "last_ame")
     private String lastName;
 
+    @Transient
+    private Long courseId;
+
     @OneToOne(cascade = {PERSIST, MERGE}, fetch = LAZY)
     private Course course;
+
 
 }

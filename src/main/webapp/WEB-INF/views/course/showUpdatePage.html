@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+</head>
+<body>
+
+<div>
+    <form class="update" th:method="POST"
+          th:action="@{/api/courses/update/{id}(id=${emtyCourse.id})}"
+          th:object="${emtyCourse}">
+        <label for="name">Change name: </label>
+        <input type="text" th:field="*{name}" id="name"/>
+        <br/>
+        <label for="duration">Change duration: </label>
+        <input type="text" th:field="*{duration}" id="duration"/>
+        <br/>
+        <input type="submit" value="Update!"/>
+    </form>
+</div>
+<form style="margin-top: 100px;margin-left: 300px"
+      method="GET" th:action="@{'/api/courses/findAll/' +${companyId}}" th:object="${companyId}">
+
+    <button>go back</button>
+</form>
+</body>
+</html>

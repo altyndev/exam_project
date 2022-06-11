@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import peaksoft.model.Company;
 import peaksoft.model.Course;
 import peaksoft.service.CourseService;
 
 import java.util.List;
+
 
 @Controller
 @RequestMapping("/api/courses")
@@ -21,27 +21,78 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @GetMapping("/getCourse/{id}")
-    public String showCourse(@PathVariable("id") Long id, Model model ){
-        model.addAttribute("showCourse",courseService.getById(id));
-        return "course/show_course";
+    // find all by company id http://localhost:8080/api/courses/findAll/{companyId} GET
+    @GetMapping("/findAll/{companyId}")
+    public String findAllByCompanyId(@PathVariable Long companyId, Model model) {
+
+        List<Course> courseList = courseService.findAllByCompanyId(companyId);
+
+        model.addAttribute("courseList", courseList);
+
+        return "course/findAllCourse";
+    }
+    // save
+    // 1. showSavePage url(http://localhost:8080/api/courses/save) GET
+    @GetMapping("/save/{companyId}")
+    public String showSavePage(@PathVariable Long companyId, Model model) {
+
+        model.addAttribute("companyId", companyId);
+
+        model.addAttribute("emtyCourse", new Course());
+
+        return "course/saveCoursePage";
     }
 
-    @GetMapping("/{id}")
-    public String getAll(@PathVariable("id") Long id, Model model){
-        model.addAttribute("comcourse",courseService.getAll(id));
-        model.addAttribute("companyId",id);
-        return "course/allCourses";
+    // 2. saveCourse url(http://loclahost:8080/api/courses/save/{companyId}) POST
+    @PostMapping("/save/{companyId}")
+    public String saveCourse(@PathVariable Long companyId, Course course) {
+
+        courseService.save(companyId, course);
+
+        return "redirect:/api/courses/findAll/{companyId}";
+    }
+    // update
+    // 1. show update page url(http://localhost:8080/api/courses/update/{courseId}) GET
+    @GetMapping("/update/{courseId}")
+    public String showUpdatePage(Model model, @PathVariable Long courseId) {
+
+        Course course = courseService.findById(courseId);
+
+        model.addAttribute("companyId", course.getCompany().getId());
+
+        model.addAttribute( "emtyCourse", course);
+
+        return "course/showUpdatePage";
     }
 
-    @GetMapping("/save")
-    public String saveCoursePage(@ModelAttribute("course") Course course) {
-        return "/course/saveCoursePage";
-    }
+    // 2. update course url(http://localhost:8080/api/courses/update/{courseId}) POST
+    @PostMapping("/update/{courseId}")
+    public String updateCourse(@PathVariable Long courseId, Course course) {
 
-    @PostMapping("/save")
-    public String saveCourse(@ModelAttribute("course") Course course) {
-        courseService.save(course);
-        return "redirect:/api/courses";
+        courseService.update(courseId, course);
+
+        Course course1 = courseService.findById(courseId);
+
+        return "redirect:/api/courses/findAll/" + course1.getCompany().getId();
+    }
+    // delete
+    // delete course url(http://localhost:8080/api/courses/delete/{courseId}) GET
+    @GetMapping("/delete/{courseId}")
+    public String deleteCourse(@PathVariable Long courseId) {
+
+        Course course = courseService.findById(courseId);
+
+        courseService.removeById(courseId);
+
+        return "redirect:/api/courses/findAll/" + course.getCompany().getId();
     }
 }
+// find all by company id http://localhost:8080/api/courses/findAll/{companyId} GET
+// save
+// 1. showSavePage url(http://localhost:8080/api/courses/save) GET
+// 2. saveCourse url(http://loclahost:8080/api/courses/save/{companyId}) POST
+// update
+// 1. show update page url(http://localhost:8080/api/courses/update/{courseId}) GET
+// 2. update course url(http://localhost:8080/api/courses/update/{courseId}) POST
+// delete
+// delete course url(http://localhost:8080/api/courses/delete/{courseId}) GET

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Courses</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        .myTable {
+            display: flex;
+            justify-content: center;
+        }
+        .saveCourse {
+            display: flex;
+            justify-content: center;
+        }
+        .goBack {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h1>
+        All courses
+    </h1>
+</div>
+<div class="myTable">
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Duration</th>
+            <th>Company's Name</th>
+            <th>Teacher's Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="course : ${courseList}">
+            <td th:text="${course.id}"></td>
+            <td th:text="${course.name}"></td>
+            <td th:text="${course.duration}"></td>
+            <td th:text="${course.company.name}"></td>
+            <td>
+                <a th:href="@{/api/teachers/find/{id}(id=${course.getId()})}">
+                    <button style="background-color: beige;color: black">Teacher</button>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/api/groups/findAll/{id}(id=${course.getId()})}">
+                <button style="background-color: beige;color: black">Group</button>
+            </a>
+            </td>
+            <td>
+                <a href="#" th:href="@{/api/courses/update/{id}(id=${course.id})}">
+                    <button type="button" class="btn btn-primary">update</button>
+                </a>
+            </td>
+            <td>
+                <a href="#" th:href="@{/api/courses/delete/{id}(id=${course.id})}">
+                    <button type="button" class="btn btn-primary">delete</button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br><br>
+</div>
+<div class="saveCourse">
+    <a th:href="@{'/api/courses/save/'+${companyId}}">
+        <button>save new course</button>
+    </a>
+        <a th:href="@{'/api/teachers/save/teacher/' + ${companyId}}">
+            <button>save new teacher</button>
+        </a>
+</div>
+<div class="goBack">
+    <a th:href="@{/api/companies}">
+        <button>go back</button>
+    </a>
+</div>
+</body>
+</html>

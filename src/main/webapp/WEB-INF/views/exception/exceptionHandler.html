@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>exception</title>
+
+</head>
+<body>
+<h1 style="text-align: center; color: red" th:text="${message}"></h1>
+<form style="margin-top: 100px;margin-left: 300px"
+      method="GET" th:action="@{'/api/teachers/save/'+${courseId}}" th:object="${courseId}">
+
+    <button type="submit">Save new teacher</button>
+</form>
+<form style="margin-top: 100px;margin-left: 300px"
+      method="GET" th:action="@{'/api/courses/findAll/'+${companyId}}" th:object="${companyId}">
+    <button type="submit">Go back</button>
+</form>
+</body>
+</html>

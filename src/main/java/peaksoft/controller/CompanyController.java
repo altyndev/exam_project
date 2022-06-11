@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import peaksoft.model.Company;
 import peaksoft.service.CompanyService;
 
-import javax.validation.Valid;
 import java.util.List;
 
 
@@ -24,12 +23,12 @@ public class CompanyController {
 
     @ModelAttribute("companies")
     public List<Company> findAllCourses() {
-        return companyService.getAll();
+        return companyService.findAll();
     }
 
     @GetMapping
     public String findAllCourse() {
-        return "/company/getAllCompany";
+        return "company/findAllCompany";
     }
 
     @GetMapping("/save")
@@ -44,19 +43,20 @@ public class CompanyController {
     }
 
     @GetMapping("/update/{id}")
-    public String update(Model model, @PathVariable("id") Long id) {
-        model.addAttribute( "company", companyService.getById(id));
-        return "company/update";
+    public String showUpdatePage(Model model, @PathVariable Long id) {
+        model.addAttribute( "company", companyService.findById(id));
+        return "company/showUpdatePage";
     }
 
-    @PatchMapping("/{id}")
-    public String update(@ModelAttribute("company") @Valid Company company, @PathVariable("id") Long id) {
+    @PatchMapping("/update/{id}")
+    public String updateCompany(@ModelAttribute("company")
+                             Company company, @PathVariable Long id) {
         companyService.update(id, company);
         return "redirect:/api/companies";
     }
 
     @DeleteMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Long id) {
+    public String delete(@PathVariable Long id) {
         companyService.removeById(id);
         return "redirect:/api/companies";
     }

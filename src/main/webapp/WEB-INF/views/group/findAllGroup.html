@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Groups</title>
+</head>
+<body>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">NAME</th>
+        <th scope="col">Date of start</th>
+        <th scope="col">Date of finish</th>
+        <th scope="col">Students</th>
+        </th>
+        <br>
+    </tr>
+    </thead>
+    <tbody th:each="group : ${allGroups}">
+    <tr>
+        <th th:text="${group.id}"></th>
+        <td th:text="${group.name}"></td>
+        <td th:text="${group.dateOfStart}"></td>
+        <td th:text="${group.dateOfFinish}"></td>
+        <td>
+            <a href="#" th:href="@{'/api/students/findAll/' + ${group.id}}">
+                <button type="button" class="btn btn-primary">Students</button>
+            </a>
+        </td>
+        <td>
+            <a href="#" th:href="@{/api/groups/update/{id}(id=${group.id})}">
+                <button type="button" class="btn btn-primary">update</button>
+            </a>
+        </td>
+        <td>
+            <a href="#" th:href="@{/api/groups/delete/{id}(id=${group.id})}">
+                <button type="button" class="btn btn-primary">delete</button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div>
+    <a th:href="@{/api/groups/save/{id}(id=${courseId})}">
+        <button>Save new group</button>
+    </a>
+</div>
+<!--<div>-->
+<!--    <a th:href="@{/api/groups/saveGroup/{id}(id=${courseId})}">-->
+<!--        <button>Save new groups</button>-->
+<!--    </a>-->
+<!--</div>-->
+<form style="margin-top: 100px;margin-left: 300px"
+      method="GET" th:action="@{'/api/courses/findAll/' +${companyId}}" th:object="${companyId}">
+    <button>go back</button>
+</form>
+
+</body>
+</html>

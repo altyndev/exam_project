@@ -8,15 +8,22 @@
 <body>
 
 <div>
-    <form class="update" th:method="PATCH" th:action="@{/api/companies/{id}(id=${company.id})}" th:object="${company}">
+    <form class="update" th:method="PATCH"
+          th:action="@{/api/companies/update/{id}(id=${company.id})}" th:object="${company}">
         <label for="companyName">Change name: </label>
-        <input type="text" th:field="*{companyName}" id="companyName"/>
+        <input type="text" th:field="*{name}" id="companyName"/>
         <br/>
         <label for="addressCompany">Change address: </label>
-        <input type="text" th:field="*{addressCompany}" id="addressCompany"/>
+        <input type="text" th:field="*{address}" id="addressCompany"/>
         <br/>
         <input type="submit" value="Update!"/>
     </form>
 </div>
+<div>
+    <a th:href="@{/api/companies}">
+        <button>go back</button>
+    </a>
+</div>
+
 </body>
 </html>

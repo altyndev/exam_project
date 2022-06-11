@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+</head>
+<body>
+
+<div>
+    <form class="update" th:method="POST"
+          th:action="@{/api/groups/update/{id}(id=${emtyGroup.id})}"
+          th:object="${emtyGroup}">
+        <label for="name">Change name: </label>
+        <input type="text" th:field="*{name}" id="name"/>
+        <br/>
+        <label for="start">Change date of start: </label>
+        <input type="text" th:field="*{dateOfStart}" id="start"/>
+        <br/>
+        <label for="finish">Change date of finish: </label>
+        <input type="text" th:field="*{dateOfFinish}" id="finish"/>
+        <br/>
+        <!--        <label for="companyId">Change company id: </label>-->
+        <!--        <input type="text" th:field="*{companyId}" id="companyId"/>-->
+        <!--        <br/>-->
+        <input type="submit" value="Update!"/>
+    </form>
+</div>
+</body>
+</html>

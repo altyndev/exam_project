@@ -6,7 +6,10 @@
     <title>company</title>
 </head>
 <body>
-<table>
+<div>
+    All Companies
+</div>
+<table class="table">
     <thead>
     <tr>
         <th scope="col">Company id</th>
@@ -19,19 +22,27 @@
     </thead>
     <tbody>
     <tr th:each="company : ${companies}">
-        <td th:text="${company.getId()}"></td>
-        <td th:text="${company.getCompanyName()}"></td>
-        <td th:text="${company.getAddressCompany()}"></td>
-        <td><a th:href="@{course/{id}(id=${company.getId()})}">
-            <button>Course</button>
-        </a></td>
+        <td th:text="${company.id}"></td>
+        <td th:text="${company.name}"></td>
+        <td th:text="${company.address}"></td>
+        <td>
+            <a th:href="@{/api/courses/findAll/{id}(id=${company.getId()})}">
+                <button>Course</button>
+            </a>
+        </td>
+<!--        <td>-->
+<!--            <a th:href="@{/api/groups/findAllCompanyId/{id}(id=${company.getId()})}">-->
+<!--                <button>Groups</button>-->
+<!--            </a>-->
+<!--        </td>-->
         <td>
             <a href="#" th:href="@{/api/companies/update/{id}(id=${company.id})}">
                 <button type="button" class="btn btn-primary">update</button>
             </a>
         </td>
         <td>
-            <form th:action="@{/api/companies/delete/{id}(id=${company.id})}" th:method="delete">
+            <form th:action="@{/api/companies/delete/{id}(id=${company.id})}"
+                  th:method="delete">
                 <input type="hidden" value="delete"/>
                 <button type="submit" class="btn btn-primary">delete</button>
             </form>
@@ -42,7 +53,7 @@
 <div>
     <a th:href="@{/api/companies/save}">
         <button>
-            Add Company
+            Save new Company
         </button>
     </a>
 </div>

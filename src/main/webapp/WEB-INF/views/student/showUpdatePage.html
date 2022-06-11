@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+</head>
+<body>
+
+<div>
+    <form class="update" th:method="POST"
+          th:action="@{/api/students/update/{id}(id=${entityStudent.id})}"
+          th:object="${entityStudent}">
+
+        <label for="firstname">Change first name: </label>
+        <input type="text" th:field="*{firstName}" id="firstname"/>
+        <br/>
+
+        <label for="duration">Change last name: </label>
+        <input type="text" th:field="*{lastName}" id="duration"/>
+        <br/>
+
+        <label for="email">Change email: </label>
+        <input type="email" th:field="*{email}" id="email"/>
+        <br/>
+
+        <form:form method="post" th:object="${entityStudent.studyFormat}">
+            <label for="online">Online</label>
+            <input id="online" type="radio" name="studyFormat" value="ONLINE">
+
+            <label for="offline">Offline</label>
+            <input id="offline" type="radio" name="studyFormat" value="OFFLINE">
+        </form:form>
+
+        <input type="submit" value="Update!"/>
+    </form>
+</div>
+<form style="margin-top: 100px;margin-left: 300px"
+      method="GET" th:action="@{'/api/students/findAll/' +${groupId}}" th:object="${groupId}">
+
+    <button>go back</button>
+</form>
+</body>
+</html>

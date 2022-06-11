@@ -26,17 +26,18 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void removeById(Long id) {
-     companyRepository.removeById(id);
+        Company company = companyRepository.findById(id);
+        companyRepository.removeByCompany(company);
     }
 
     @Override
-    public Company getById(Long id) {
-        return companyRepository.getById(id);
+    public Company findById(Long id) {
+        return companyRepository.findById(id);
     }
 
     @Override
-    public List<Company> getAll() {
-        return companyRepository.getAll();
+    public List<Company> findAll() {
+        return companyRepository.findAll();
     }
 
     @Override

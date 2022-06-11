@@ -25,17 +25,16 @@ public class Student {
     @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "study_format")
-    @Enumerated(value = EnumType.STRING)
     private StudyFormat studyFormat;
 
-    @ManyToOne(cascade = {PERSIST, MERGE}, fetch = EAGER)
+    @ManyToOne(cascade = {MERGE}, fetch = EAGER)
     private Group group;
 
     public Student(String firstName, String email) {

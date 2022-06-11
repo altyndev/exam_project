@@ -10,22 +10,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.CascadeType.*;
-import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.FetchType.*;
 
 @Entity
 @Table(name = "groups")
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Group {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(
+            name = "group_sequence",
+            sequenceName = "group_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            generator = "group_sequence")
     private Long id;
 
-    @Column(name = "group_name")
-    private String groupName;
+    private String name;
 
     @Column(name = "date_of_start")
     private String dateOfStart;
@@ -33,19 +36,24 @@ public class Group {
     @Column(name = "date_of_finish")
     private String dateOfFinish;
 
-    @ManyToMany(cascade = {PERSIST, MERGE}, fetch = LAZY)
-    @JoinTable(name = "group_id_course_id",joinColumns = @JoinColumn(name = "group_id"),inverseJoinColumns =
-    @JoinColumn(name = "course_id"))
-    private List<Course> courses;
+    @Transient
+    private Long courseId;
 
-    @OneToMany(cascade = {PERSIST, MERGE, REMOVE}, fetch = EAGER, mappedBy = "group")
+    @ManyToMany(cascade = {PERSIST, MERGE, DETACH, REFRESH},fetch = LAZY, mappedBy = "groups")
+    private List<Course>courses;
+
+    @OneToMany(cascade = {MERGE, REFRESH, DETACH, REMOVE}, orphanRemoval = true, fetch = EAGER, mappedBy = "group")
     private List<Student> students;
 
-    public void getAllCourse(Course course) {
-        if (course == null) {
+    public void setCourse(Course course) {
+        this.courses.add(course);
+    }
+
+    public void setCourse1(Course course) {
+        if (courses == null) {
             courses = new ArrayList<>();
         }
         courses.add(course);
-        course.getAllGroup(this);
+        course.setGroups1(this);
     }
 }

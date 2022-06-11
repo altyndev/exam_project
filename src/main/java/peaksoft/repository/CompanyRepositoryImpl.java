@@ -1,7 +1,6 @@
 package peaksoft.repository;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import peaksoft.model.Company;
 import peaksoft.repository.repositoryInterface.CompanyRepository;
 
@@ -25,17 +24,17 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 
     @Override
     @Transactional
-    public void removeById(Long id) {
-        entityManager.remove(getById(id));
+    public void removeByCompany(Company company) {
+        entityManager.remove(company);
     }
 
     @Override
-    public Company getById(Long id) {
+    public Company findById(Long id) {
         return entityManager.find(Company.class, id);
     }
 
     @Override
-    public List<Company> getAll() {
+    public List<Company> findAll() {
         return entityManager.createQuery(
                 "select s from Company s", Company.class).getResultList();
     }
@@ -43,9 +42,9 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     @Override
     @Transactional
     public void update(Long id, Company company) {
-        Company company1 = getById(id);
-        company1.setCompanyName(company.getCompanyName());
-        company1.setAddressCompany(company.getAddressCompany());
+        Company company1 = findById(id);
+        company1.setName(company.getName());
+        company1.setAddress(company.getAddress());
         entityManager.merge(company1);
     }
 }

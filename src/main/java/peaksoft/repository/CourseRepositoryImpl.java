@@ -2,6 +2,7 @@ package peaksoft.repository;
 
 import org.springframework.stereotype.Repository;
 import peaksoft.model.Course;
+import peaksoft.model.Group;
 import peaksoft.repository.repositoryInterface.CourseRepository;
 
 import javax.persistence.EntityManager;
@@ -22,27 +23,24 @@ public class CourseRepositoryImpl implements CourseRepository {
     }
 
     @Override
-    public void removeById(Long id) {
-        entityManager.remove(getById(id));
+    public void removeByCourse(Course course) {
+        entityManager.remove(course);
     }
 
     @Override
-    public Course getById(Long id) {
+    public Course findById(Long id) {
         return entityManager.find(Course.class, id);
     }
 
     @Override
-    public List<Course> getAll(Long id) {
+    public List<Course> findAllByCompanyId(Long id) {
         return entityManager.createQuery(
-                "select c from Course c where c.company.id =:id",Course.class)
-                .setParameter("id",id).getResultList();
+                        "select c from Course c where c.company.id = :id", Course.class)
+                .setParameter("id", id).getResultList();
     }
 
     @Override
-    public void update(Long id, Course course) {
-        Course course1 = getById(id);
-        course1.setCourseName(course.getCourseName());
-        course1.setDuration(course.getDuration());
+    public void update(Course course) {
         entityManager.merge(course);
     }
 }

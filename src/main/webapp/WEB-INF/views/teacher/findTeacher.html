@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>teacher</title>
+</head>
+<body>
+<div>
+    <h1>
+        Teacher
+    </h1>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>email</th>
+        <th>Course's name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${teacher.id}"></td>
+        <td th:text="${teacher.firstName}"></td>
+        <td th:text="${teacher.lastName}"></td>
+        <td th:text="${teacher.email}"></td>
+        <td th:text="${teacher.course.name}"></td>
+        <td>
+            <a href="#" th:href="@{/api/teachers/update/{id}(id=${teacher.id})}">
+                <button type="button" class="btn btn-primary">update</button>
+            </a>
+        </td>
+        <td>
+            <a href="#" th:href="@{/api/teachers/delete/{id}(id=${teacher.id})}">
+                <button type="button" class="btn btn-primary">delete</button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<form style="margin-top: 100px;margin-left: 300px"
+      method="GET" th:action="@{'/api/courses/findAll/' +${companyId}}" th:object="${companyId}">
+    <button>go back</button>
+</form>
+</body>
+</html>

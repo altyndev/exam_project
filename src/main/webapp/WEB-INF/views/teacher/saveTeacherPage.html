@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>save</title>
+</head>
+<body>
+<form style="margin-top: 100px; margin-left: 300px"
+      method="post" th:action="@{'/api/teachers/save/'+${courseId}}"
+      th:object="${emtyTeacher}">
+
+    <label for="name">First name</label>
+    <input id="name" th:field="${emtyTeacher.firstName}" placeholder="first name">
+    <br><br>
+
+    <label for="last">Last name</label>
+    <input id="last" th:field="${emtyTeacher.lastName}" placeholder="last name">
+    <br><br>
+
+    <label for="email">Email</label>
+    <input id="email" th:field="${emtyTeacher.email}" placeholder="email">
+    <br><br>
+
+    <button type="submit">Save new teacher</button>
+</form>
+<form style="margin-top: 100px;margin-left: 300px"
+      method="GET" th:action="@{'/api/courses/findAll/' +${companyId}}" th:object="${companyId}">
+    <button>go back</button>
+</form>
+
+</body>
+</html>

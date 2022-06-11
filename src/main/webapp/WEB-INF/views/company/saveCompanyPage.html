@@ -12,11 +12,11 @@
       th:object="${company}">
 
     <label for="companyName">Company Name</label>
-    <input id="companyName" th:field="${company.companyName}" placeholder="company_name">
+    <input id="companyName" th:field="${company.name}" placeholder="company_name">
     <br><br>
 
     <label for="locatedCountry">Country</label>
-    <input id="locatedCountry" th:field="${company.addressCompany}" placeholder="company_location">
+    <input id="locatedCountry" th:field="${company.address}" placeholder="company_location">
     <br><br>
 
     <button type="submit">save company</button>

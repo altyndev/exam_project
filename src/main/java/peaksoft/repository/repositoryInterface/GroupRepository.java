@@ -7,13 +7,13 @@ import java.util.List;
 
 @Repository
 public interface GroupRepository {
-    void save(Group group);
+    Group save(Group group);
 
-    void removeById(Long id);
+    void removeByGroup(Long id);
 
-    Group getById(Long id);
+    Group findById(Long id);
 
-    List<Group> getAll();
+    List<Group> findAllCourseById(Long courseId);
 
     void update(Group group);
 }

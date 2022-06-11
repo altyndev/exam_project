@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        .myTable {
+            display: flex;
+            justify-content: center;
+        }
+        .goBack {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h1>
+        All students
+    </h1>
+</div>
+<div class="myTable">
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Email</th>
+            <th>Study format</th>
+            <th>Group name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${studentList}">
+            <td th:text="${student.id}"></td>
+            <td th:text="${student.firstName}"></td>
+            <td th:text="${student.lastName}"></td>
+            <td th:text="${student.email}"></td>
+            <td th:text="${student.studyFormat}"></td>
+            <td th:text="${student.group.name}"></td>
+            <td>
+                <a href="#" th:href="@{/api/students/update/{id}(id=${student.id})}">
+                    <button type="button" class="btn btn-primary">update</button>
+                </a>
+            </td>
+            <td>
+                <a href="#" th:href="@{/api/students/delete/{id}(id=${student.id})}">
+                    <button type="button" class="btn btn-primary">delete</button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br><br>
+</div>
+<div class="saveStudent">
+    <a th:href="@{'/api/students/save/'+${groupId}}">
+        <button>save new student</button>
+    </a>
+<div class="goBack">
+    <a th:href="@{/api/companies}">
+        <button>go back</button>
+    </a>
+</div>
+</body>
+</html>

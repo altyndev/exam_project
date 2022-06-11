@@ -19,20 +19,24 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 public class Company {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(
+            name = "company_sequence",
+            sequenceName = "company_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            generator = "company_sequence")
     private Long id;
 
-    @Column(name = "company_name")
-    private String companyName;
+    private String name;
 
-    @Column(name = "address_company")
-    private String addressCompany;
+    private String address;
 
-    @OneToMany(cascade = ALL, fetch = EAGER, mappedBy = "company")
+    @OneToMany(cascade = {REMOVE, MERGE},  mappedBy = "company")
     private List<Course> courses;
 
-    public Company(String companyName, String addressCompany) {
-        this.companyName = companyName;
-        this.addressCompany = addressCompany;
+    public Company(String name, String address) {
+        this.name = name;
+        this.address = address;
     }
 }

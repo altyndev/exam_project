@@ -2,6 +2,7 @@ package peaksoft.repository.repositoryInterface;
 
 import org.springframework.stereotype.Repository;
 import peaksoft.model.Course;
+import peaksoft.model.Group;
 
 import java.util.List;
 
@@ -10,11 +11,11 @@ public interface CourseRepository {
 
     void save(Course course);
 
-    void removeById(Long id);
+    void removeByCourse(Course course);
 
-    Course getById(Long id);
+    Course findById(Long id);
 
-    List<Course> getAll(Long id);
+    List<Course> findAllByCompanyId(Long id);
 
-    void update(Long id, Course course);
+    void update(Course course);
 }

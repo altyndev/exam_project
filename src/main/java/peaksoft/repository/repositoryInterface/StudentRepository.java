@@ -9,11 +9,11 @@ import java.util.List;
 public interface StudentRepository {
     void save(Student student);
 
-    void removeById(Long id);
+    Student findById(Long id);
 
-    Student getById(Long id);
+    void remove(Student student);
 
-    List<Student> getAll();
+    List<Student> findAll(Long id);
 
     void update(Student student);
 }
